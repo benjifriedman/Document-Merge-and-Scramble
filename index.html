@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Document Merge</title>
+	<style type="text/css">
+		.container {
+			font-family: sans-serif;
+			max-width: 500px;
+			margin: auto;
+			text-align: center;
+		}
+		textarea {
+			margin: 10px;
+			height: 100px;
+		}
+		h1 {
+			margin-bottom: 0;
+		}
+		button {
+			margin: 5px;
+		}
+		#results {
+			text-align: left;
+		}
+		.clearButtonsContainer {
+			display: none;
+			justify-content: center;
+		}
+
+	</style>
+</head>
+<body>
+
+	<div class="container">
+		<h1>Document Merge</h1>
+		<p>Merge and scramble two text documents together</p>
+		<div style="display: flex; justify-content: center;">
+			<textarea id="first"></textarea>
+			<textarea id="second"></textarea>
+		</div>
+		<button onclick="merge()">Merge and Scramble</button>
+		<p id="results"></p>
+		<div class="clearButtonsContainer">
+			<button id="clearLeft">Clear Left</button>
+			<button id="clearBoth">Clear Both</button>
+			<button id="clearRight">Clear Right</button>
+		</div>
+	</div>
+
+
+<script>
+	function merge() {
+		var first= document.getElementById("first").value.split(" ");
+		var second= document.getElementById("first").value.split(" ");
+		var combinedArray = first.concat(second);
+
+		shuffle(combinedArray);
+		var resultString = combinedArray.join(" ");
+
+		console.log(resultString);
+
+		document.getElementById("results").innerText = resultString;
+
+		document.querySelector(".clearButtonsContainer").style.display = "flex";
+	}
+
+	//https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
+	function shuffle(array) {
+  		let currentIndex = array.length, randomIndex;
+  		while (currentIndex != 0) {
+    		randomIndex = Math.floor(Math.random() * currentIndex);
+    		currentIndex--;
+    		[array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+  		}
+  		return array;
+	}
+
+
+	document.getElementById("clearLeft").addEventListener("click", function() {
+    		document.getElementById("first").value = "";
+			document.getElementById("results").innerText = "";
+	}, false);
+
+	document.getElementById("clearRight").addEventListener("click", function() {
+			document.getElementById("second").value = "";
+			document.getElementById("results").innerText = "";
+	}, false);
+
+	document.getElementById("clearBoth").addEventListener("click", function() {
+			document.getElementById("first").value = "";
+			document.getElementById("second").value = "";
+			document.getElementById("results").innerText = "";
+			document.querySelector(".clearButtonsContainer").style.display = "none";
+	}, false);
+
+
+</script>
+</body>
+</html>
